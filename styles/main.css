@@ -47,12 +47,61 @@ header h2 {
     padding: 6px;
 }
 
-.button {
-    padding: 9px 18px;
+nav {
+    grid-area: nav;
+    margin: 0px 12px;
+}
+
+nav ul li {
+    display: inline-block;
+    padding: 12px 24px;
+    list-style: none;
+    background: #272727;
     border-radius: 6px;
 }
 
+nav ul li:hover {
+    background: #fafafa;
+}
+
+nav ul li:hover > a {
+    color: #272727;
+}
+
+nav ul li a {
+    color: #fafafa;
+    text-decoration: none;
+}
+
+main {
+    grid-area: main;
+}
+
+.sub_menu {
+    text-align: center;
+}
+
+.sub_menu form ul li {
+    display: inline-block;
+}
+
+.button {
+    padding: 9px 18px;
+    border-radius: 6px;
+    display: inline-block;
+}
+
 .button.login {
+    background: #272727;
+    color: #fafafa;
+}
+
+.button.search {
+    background: #272727;
+    color: #fafafa;
+}
+
+.button.link:hover {
     background: #272727;
     color: #fafafa;
 }

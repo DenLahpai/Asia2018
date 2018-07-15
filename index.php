@@ -15,7 +15,13 @@
                             Please Login
                         </h3>
                     </li>
-                    <li class="notice error"></li>
+                    <li class="notice error">
+                        <?php
+                        if ($_SESSION['error_message'] != NULL) {
+                            echo $_SESSION['error_message'];
+                        }
+                        ?>
+                    </li>
                     <li>
                         <input type="text" name="Username" id="Username" placeholder="Username">
                     </li>
