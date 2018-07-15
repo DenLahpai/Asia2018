@@ -1,0 +1,67 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "helvetica";
+}
+
+body {
+
+}
+
+.error {
+    color: red;
+}
+
+.login_page {
+    background: #F8F8FF;
+}
+
+.login_page {
+    text-align: center;
+}
+
+.login_page li {
+    list-style: none;
+    padding: 6px;
+}
+
+.content {
+    display: grid;
+    grid-gap: 6px;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-areas:
+    " header header header header header header "
+    " nav nav nav nav nav nav "
+    " main main main main main main "
+    " section section section section section section "
+    " aside aside aside aside aside aside "
+    ;
+}
+
+header {
+    grid-area: header;
+    text-align: center;
+}
+
+header h2 {
+    padding: 6px;
+}
+
+.button {
+    padding: 9px 18px;
+    border-radius: 6px;
+}
+
+.button.login {
+    background: #272727;
+    color: #fafafa;
+}
+
+footer {
+    margin: 60px;
+    text-align: center;
+}
+
+footer span {
+    font-weight: bold;
+}
