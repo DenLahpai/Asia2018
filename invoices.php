@@ -1,5 +1,12 @@
 <?php
 require "functions.php";
+
+//getting data from the users
+$rows_users = table_users('select', $_SESSION['users_Id']);
+foreach ($rows_users as $row_users) {
+    // code
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -21,7 +28,7 @@ require "functions.php";
                     <form class="search form" action="#" method="post">
                         <ul>
                             <li>
-                                <a href="#"><button type="button" class="button link" name="button">Create New</button></a>
+                                <a href="new_invoice.php"><button type="button" class="button link" name="button">Create New</button></a>
                                 &nbsp;
                             </li>
                             <li>
@@ -38,7 +45,37 @@ require "functions.php";
                 <!-- table large  -->
                 <div class="table large">
                     <table>
-                        
+                        <thead>
+                            <tr>
+                                <th>
+                                    Invoice Number
+                                </th>
+                                <th>
+                                    Invoice Date
+                                </th>
+                                <th>
+                                    Bill To
+                                </th>
+                                <th>
+                                    Currency
+                                </th>
+                                <th>
+                                    Amount
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                                <th>
+                                    Paid Date
+                                </th>
+                                <th>
+                                    #
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
                     </table>
                 </div>
                 <!-- end of table large -->

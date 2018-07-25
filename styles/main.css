@@ -60,17 +60,24 @@ nav ul li {
     border-radius: 6px;
 }
 
-nav ul li:hover {
+/* nav ul li:hover {
     background: #fafafa;
 }
 
 nav ul li:hover > a {
     color: #272727;
-}
+} */
 
 nav ul li a {
     color: #fafafa;
     text-decoration: none;
+}
+
+nav ul li a:hover {
+    background: #fafafa;
+    color: #272727;
+    border-radius: 50%;
+    padding: 12px;   
 }
 
 main {
@@ -87,7 +94,8 @@ main {
 
 .button {
     padding: 9px 18px;
-    border-radius: 6px;
+    background: #272727;
+    color: white;
     display: inline-block;
 }
 
@@ -113,4 +121,45 @@ footer {
 
 footer span {
     font-weight: bold;
+}
+
+.invoice_header {
+    margin: 12px auto;
+    padding: 12px;
+    border: 1px solid black;
+}
+
+.invoice_header thead tr td {
+    padding: 3px 9px;
+}
+
+.invoice_header thead tr td input {
+    border: 0px;
+    border-bottom: 1px solid black;
+}
+
+.invoice_details {
+    margin: 6px auto;
+    padding: 12px;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.invoice_details thead tr th {
+    padding: 3px 9px;
+    border: 1px solid black;
+}
+
+.invoice_details tbody td {
+    padding: 6px 9px;
+    border: 1px solid black;
+}
+
+.invoice_details tbody th {
+    padding: 6px 9px;
+    border: 1px solid black;
+}
+
+.wide_input {
+    width: 360px;
 }
