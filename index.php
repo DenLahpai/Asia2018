@@ -1,4 +1,9 @@
-<?php  ?>
+<?php
+session_start();
+//setting up the timezone
+date_default_timezone_set("Asia/Yangon");
+
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <?php
@@ -17,7 +22,7 @@
                     </li>
                     <li class="notice error">
                         <?php
-                        if ($_SESSION['error_message'] != NULL) {
+                        if (isset($_SESSION['error_message']) ) {
                             echo $_SESSION['error_message'];
                         }
                         ?>

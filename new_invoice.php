@@ -2,12 +2,6 @@
 require "functions.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-    //inserting data to the table invoice header
-
-
-
-
     //generating invoice number
     $year = date('Y');
     $gen_invoice_no = new Database();
@@ -28,9 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $Invoice_Number = '2018'.'-'.$num;
     }
 
-    
-
-
+    //inserting data to the table invoice header
+    table_invoice_headers('insert', $Invoice_Number);
+    table_invoice_details('insert', $Invoice_Number);
+    table_invoices('insert', $Invoice_Number);
 }
 
 ?>

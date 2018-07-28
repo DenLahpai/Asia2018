@@ -77,7 +77,7 @@ nav ul li a:hover {
     background: #fafafa;
     color: #272727;
     border-radius: 50%;
-    padding: 12px;   
+    padding: 12px;
 }
 
 main {
@@ -162,4 +162,47 @@ footer span {
 
 .wide_input {
     width: 360px;
+}
+
+.view_invoice_header table {
+    margin: 12px auto;
+    border-collapse: collapse;
+}
+
+.view_invoice_header table thead tr td {
+    padding: 6px 60px;
+    border: 1px solid silver;
+}
+
+.invoice_top table {
+    margin: 3px auto;
+}
+
+.invoice_top img {
+    width: 300px;
+}
+
+.invoice_top ul li {
+    list-style: none;
+    padding: 3px 12px;
+}
+
+.view_invoice_details table {
+    margin: 12px auto;
+    border-collapse: collapse;
+}
+
+.view_invoice_details table thead tr th {
+    border: 1px solid silver;
+    padding: 6px 12px;
+}
+
+.view_invoice_details table tbody tr td {
+    border: 1px solid silver;
+    padding: 6px 36px;
+}
+
+.view_invoice_details table tbody tr th {
+    border: 1px solid silver;
+    padding: 6px 12px;
 }

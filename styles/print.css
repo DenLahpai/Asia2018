@@ -1,0 +1,70 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+header {
+    border-bottom: 4px solid silver;
+}
+
+header table {
+    margin: 3px;
+}
+
+header table thead tr td img {
+    width: 180px;
+}
+
+header table thead tr td:nth-of-type(odd) {
+    padding-right: 60px;
+}
+
+header table thead tr td:nth-of-type(even) {
+    padding-left: 60px;
+}
+
+header table thead tr td ul li {
+    margin-left: 6px;
+    list-style: none;
+}
+
+header table thead tr td ul li:nth-of-type(1){
+    font-weight: bold;
+    font-size: 110%;
+}
+
+.invoice_header {
+    margin: 6px;
+}
+
+.invoice_body {
+    text-align: center;
+}
+
+.invoice_body table {
+    margin: 6px auto;
+    border-collapse: collapse;
+}
+
+.invoice_body table tr th {
+    padding: 6px 24px;
+    border: 1px solid silver;
+}
+
+.invoice_body table tbody tr td {
+    padding: 6px 24px;
+    border: 1px solid silver;
+}
+
+.invoice_tail {
+    margin: 24px 6px;
+}
+
+footer {
+    margin: 24px;
+    text-align: center;
+}
