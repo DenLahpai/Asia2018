@@ -165,11 +165,11 @@ $rows_invoice_details = table_invoice_details('select', $Invoice_Number, $curren
                     </tr>
                     <tr>
                         <th colspan="3">
-                            <a href="<?php echo "edit_invoice.php?Invoice_Number=$Invoice_Number"; ?>"><button class="button lilnk">Edit</button></a>
+                            <a href="<?php echo "edit_invoice.php?Invoice_Number=$Invoice_Number"; ?>"><button type="button" class="button lilnk">Edit</button></a>
                             &nbsp;
                             &nbsp;
                             &nbsp;
-                            <a href="<?php echo "print_invoice.php?Invoice_Number=$Invoice_Number"; ?>" target="_blank"><button class="button link">Print</button></a>
+                            <a href="<?php echo "print_invoice.php?Invoice_Number=$Invoice_Number"; ?>" target="_blank"><button type="button" class="button link">Print</button></a>
                         </th>
                     </tr>
                 </tbody>

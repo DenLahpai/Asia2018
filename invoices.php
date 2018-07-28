@@ -54,13 +54,10 @@ foreach ($rows_users as $row_users) {
                                     Invoice Date
                                 </th>
                                 <th>
-                                    Bill To
+                                    USD
                                 </th>
                                 <th>
-                                    Currency
-                                </th>
-                                <th>
-                                    Amount
+                                    SGD
                                 </th>
                                 <th>
                                     Status
@@ -69,12 +66,36 @@ foreach ($rows_users as $row_users) {
                                     Paid Date
                                 </th>
                                 <th>
+                                    Method
+                                </th>
+                                <th>
                                     #
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-
+                            <?php
+                            $rows_invoices = table_invoices('select', NULL);
+                            foreach ($rows_invoices as $row_invoices) {
+                                echo "<tr>";
+                                echo "<td>".$row_invoices->Invoice_Number."</td>";
+                                echo "<td>".date('d-M-Y', strtotime($row_invoices->Invoice_Date))."</td>";
+                                echo "<td>".$row_invoices->USD."</td>";
+                                echo "<td>".$row_invoices->SGD."</td>";
+                                echo "<td>".$row_invoices->Status."</td>";
+                                echo "<td>";
+                                if (date('Y', strtotime($row_invoices->Paid_Date)) == 2018) {
+                                    echo date('d-M-Y', strtotime($row_invoices->Paid_Date));
+                                }
+                                else {
+                                    echo "&nbsp";
+                                }
+                                echo "</td>";
+                                echo "<td>".$row_invoices->Method."</td>";
+                                echo "<td><a href=\"view_invoice.php?Invoice_Number=$row_invoices->Invoice_Number\">View</a></td>";
+                                echo "</tr>";
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -82,5 +103,6 @@ foreach ($rows_users as $row_users) {
             </main>
         </div>
         <!-- end of content -->
+        <?php include "includes/footer.html"; ?>
     </body>
 </html>

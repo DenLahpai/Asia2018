@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $gen_invoice_no->query($query_gen_invoice_no);
     $rowCount = $gen_invoice_no->rowCount();
     $num = $rowCount + 1;
+    $currency = $_REQUEST['currency'];
     if($num <= 9) {
         $Invoice_Number = '2018'.'-000'.$num;
     }
@@ -24,8 +25,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     //inserting data to the table invoice header
     table_invoice_headers('insert', $Invoice_Number);
-    table_invoice_details('insert', $Invoice_Number);
+    table_invoice_details('insert', $Invoice_Number, $currency);
     table_invoices('insert', $Invoice_Number);
+
 }
 
 ?>
@@ -39,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <!-- content -->
         <div class="content">
             <?php
-            $header = "New Invoices";
+            $header = "New Invoice";
             include "includes/header.html";
             include "includes/menu.html";
             ?>
@@ -105,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <tr>
                                 <th colspan="3">
                                     Currency: &nbsp;
-                                    <select name="currency">
+                                    <select name="currency" id="currency">
                                         <option value="">Select One</option>
                                         <option value="USD">USD</option>
                                         <option value="SGD">SGD</option>

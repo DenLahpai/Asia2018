@@ -92,6 +92,31 @@ function table_invoice_headers($task, $Invoice_Number) {
             return $r = $database->resultset();
             break;
 
+        case 'update':
+            $Bill_To = trim($_REQUEST['Bill_To']);
+            $Address = trim($_REQUEST['Address']);
+            $City = trim($_REQUEST['City']);
+            $Country = trim($_REQUEST['Country']);
+            $Attn = trim($_REQUEST['Attn']);
+
+            $query = "UPDATE invoice_headers SET
+                Bill_To = :Bill_To,
+                Address = :Address,
+                City = :City,
+                Country = :Country,
+                Attn = :Attn
+                WHERE Invoice_Number = :Invoice_Number
+            ;";
+            $database->query($query);
+            $database->bind(':Bill_To', $Bill_To);
+            $database->bind(':Address', $Address);
+            $database->bind(':City', $City);
+            $database->bind(':Country', $Country);
+            $database->bind(':Attn', $Attn);
+            $database->bind(':Invoice_Number', $Invoice_Number);
+            $database->execute();
+            break;
+
         default:
             // code...
             break;
@@ -104,9 +129,8 @@ function table_invoice_details($task, $Invoice_Number, $currency){
 
     switch ($task) {
         case 'insert':
-            $currency = $_REQUEST['currency'];
             $i = 1;
-            while ($i < 20) {
+            while ($i <= 20) {
                 $Date = $_REQUEST["Date$i"];
                 $Description = $_REQUEST["Description$i"];
                 $amount = $_REQUEST["amount$i"];
@@ -158,6 +182,30 @@ function table_invoice_details($task, $Invoice_Number, $currency){
             return $r = $database->resultset();
             break;
 
+        case 'update':
+            $i = 1;
+            while ($i <= 20) {
+                $Id = $_REQUEST["Id$i"];
+                $Date = $_REQUEST["Date$i"];
+                $Description = trim($_REQUEST["Description$i"]);
+                $amount = $_REQUEST["amount$i"];
+
+                $query = "UPDATE invoice_details SET
+                    Date = :Date,
+                    Description = :Description,
+                    $currency = :amount
+                    WHERE Id = :Id
+                ;";
+                $database->query($query);
+                $database->bind(':Date', $Date);
+                $database->bind(':Description', $Description);
+                $database->bind(':amount', $amount);
+                $database->bind(':Id', $Id);
+                $database->execute();
+                $i++;
+            }
+            break;
+
         default:
             // code...
             break;
@@ -176,7 +224,7 @@ function table_invoices($task, $Invoice_Number) {
             $Invoice_date = $_REQUEST['Invoice_Date'];
             $one_month = 30;
             $Due_Date = date('Y-m-d', strtotime($Invoice_date."+".$one_month.'days'));
-            $sum = table_invoice_details('sum', $Invoice_Number);
+            $sum = table_invoice_details('sum', $Invoice_Number, $currency);
 
             $query = "INSERT INTO invoices (
                 Invoice_Number,
@@ -217,6 +265,43 @@ function table_invoices($task, $Invoice_Number) {
                 $database->bind(':Invoice_Number', $Invoice_Number);
             }
             return $r = $database->resultset();
+            break;
+
+        case 'update':
+            $Clients_Reference = trim($_REQUEST['Clients_Reference']);
+
+            $query_currency = "SELECT USD, SGD FROM invoices WHERE Invoice_Number = :Invoice_Number ;";
+            $database->query($query_currency);
+            $database->bind(':Invoice_Number', $Invoice_Number);
+            $result_currency = $database->resultset();
+            foreach ($result_currency as $result_currency) {
+                // code...
+            }
+            if ($result_currency->USD == 0) {
+                $currency = 'SGD';
+            }
+            else {
+                $currency = 'USD';
+            }
+            echo $sum = table_invoice_details('sum', $Invoice_Number, $currency);
+            $Invoice_Date = $_REQUEST['Invoice_Date'];
+
+            $query = "UPDATE invoices SET
+                Clients_Reference = :Clients_Reference,
+                $currency = :sum,
+                Invoice_Date = :Invoice_Date
+                WHERE Invoice_Number = :Invoice_Number
+            ;";
+            $database->query($query);
+            $database->bind(':Clients_Reference', $Clients_Reference);
+            $database->bind(':sum', $sum);
+            $database->bind(':Invoice_Date', $Invoice_Date);
+            $database->bind(':Invoice_Number', $Invoice_Number);
+            if ($database->execute()) {
+                header("location:edit_invoice.php?Invoice_Number=$Invoice_Number");
+            }
+
+
             break;
 
         default:

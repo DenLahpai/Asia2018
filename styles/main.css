@@ -206,3 +206,18 @@ footer span {
     border: 1px solid silver;
     padding: 6px 12px;
 }
+
+.table.large table {
+    margin: 12px auto;
+    border-collapse: collapse;
+}
+
+.table.large table thead tr th {
+    padding: 6px 18px;
+    border: 1px solid silver;
+}
+
+.table.large table tbody tr td {
+    padding: 6px 18px;
+    border: 1px solid silver;
+}
