@@ -34,7 +34,7 @@ date_default_timezone_set("Asia/Yangon");
                         <input type="password" name="Password" id="Password" placeholder="Password">
                     </li>
                     <li>
-                        <button type="button" class="button login" name="buttonSubmit" id="buttonSubmit" onclick="check_two_fields('Username','Password');">Login</button>
+                        <button type="button" class="button login" name="buttonSubmit" id="buttonSubmit" onclick="check_fields('Username','Password', 'Username');">Login</button>
                     </li>
                 </ul>
             </form>

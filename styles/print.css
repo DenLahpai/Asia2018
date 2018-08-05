@@ -15,7 +15,11 @@ header table {
     margin: 3px;
 }
 
-header table thead tr td img {
+header img {
+    margin-left: 12px;
+}
+
+header img {
     width: 180px;
 }
 
@@ -32,10 +36,6 @@ header table thead tr td ul li {
     list-style: none;
 }
 
-header table thead tr td ul li:nth-of-type(1){
-    font-weight: bold;
-    font-size: 110%;
-}
 
 .invoice_header {
     margin: 6px;

@@ -47,9 +47,6 @@ $rows_invoice_details = table_invoice_details('select', $Invoice_Number, $curren
                         <thead>
                             <tr>
                                 <td>
-                                    <img src="images/LinkLogo.jpg" alt="">
-                                </td>
-                                <td>
                                     <ul>
                                         <li>
                                             Invoice No: &nbsp;
@@ -68,7 +65,6 @@ $rows_invoice_details = table_invoice_details('select', $Invoice_Number, $curren
                                             <?php echo date('d-M-Y', strtotime($row_invoices->Due_Date)); ?>
                                         </li>
                                     </ul>
-
                                 </td>
                             </tr>
                         </thead>
@@ -165,7 +161,7 @@ $rows_invoice_details = table_invoice_details('select', $Invoice_Number, $curren
                     </tr>
                     <tr>
                         <th colspan="3">
-                            <a href="<?php echo "edit_invoice.php?Invoice_Number=$Invoice_Number"; ?>"><button type="button" class="button lilnk">Edit</button></a>
+                            <a href="<?php echo "edit_invoice.php?Invoice_Number=$Invoice_Number"; ?>"><button type="button" class="button link">Edit</button></a>
                             &nbsp;
                             &nbsp;
                             &nbsp;

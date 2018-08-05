@@ -1,7 +1,6 @@
 <?php
 require "functions.php";
 
-
 //getting Invoice_Number
 $Invoice_Number = trim($_REQUEST['Invoice_Number']);
 
@@ -75,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </td>
                                 <td>
                                     Country: &nbsp;
-                                    <input type="text" name="Country" id="Country" value="<?php echo $row_invoice_headers->Country; ?>" required>
+                                    <input type="text" name="Country" id="Country" value="<?php echo $row_invoice_headers->Country; ?>">
                                 </td>
                             </tr>
                             <tr>
@@ -129,9 +128,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </th>
                             </tr>
                             <tr>
-                                <th colspan="4">
-                                    <button type="submit" class="button link" id="buttonSubmit" name="buttonSubmit">update</button>
+                                <th colspan="4" class="notice error">
 
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="4">
+                                    <button type="button" class="button link" id="buttonSubmit" name="buttonSubmit" onclick="check_fields('Bill_To', 'City', 'City');">update</button>
+                                    &nbsp;
                                     &nbsp;
                                     &nbsp;
                                     &nbsp;
@@ -145,4 +149,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <!-- end of content -->
     </body>
+    <script type="text/javascript" src="js/scripts.js"></script>
 </html>

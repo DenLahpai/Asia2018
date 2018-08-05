@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <tr>
                                 <td>
                                     Bill To: &nbsp;
-                                    <input type="text" name="Bill_To" id="Bill_To" placeholder="Bill to">
+                                    <input type="text" name="Bill_To" id="Bill_To" placeholder="Bill to" required>
                                 </td>
                                 <td>
                                     Invoice Date: &nbsp;
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <tr>
                                 <td>
                                     City: &nbsp;
-                                    <input type="text" name="City" id="City" placeholder="City">
+                                    <input type="text" name="City" id="City" placeholder="City" required>
                                 </td>
                                 <td>
                                     Country: &nbsp;
@@ -105,6 +105,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             }
                             ?>
                             <tr>
+                                <th colspan="3" class="notice error">
+
+                                </th>
+                            </tr>
+                            <tr>
                                 <th colspan="3">
                                     Currency: &nbsp;
                                     <select name="currency" id="currency">
@@ -112,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <option value="USD">USD</option>
                                         <option value="SGD">SGD</option>
                                     </select>
-                                    <button type="submit" class="button link" id="buttonSubmit" name="buttonSubmit">Generate</button>
+                                    <button type="button" class="button link" id="buttonSubmit" name="buttonSubmit" onclick="check_fields('Bill_To', 'City', 'currency');">Generate</button>
                                 </th>
                             </tr>
                         </tbody>
@@ -123,4 +128,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <!-- end of content -->
         <?php include "includes/footer.html"; ?>
     </body>
+    <script type="text/javascript" src="js/scripts.js"></script>
 </html>

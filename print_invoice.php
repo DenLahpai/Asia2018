@@ -34,7 +34,7 @@ $rows_invoice_details = table_invoice_details('select', $Invoice_Number, $curren
     <head>
         <meta charset="utf-8">
         <link rel="stylesheet" href="styles/print.css">
-        <link rel="Shortcut icon" href="images/Logo_small.png"/>
+        <link rel="Shortcut icon" href="images/small-logo.png"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title><?php echo "Invoice: ".$Invoice_Number; ?></title>
     </head>
@@ -42,15 +42,12 @@ $rows_invoice_details = table_invoice_details('select', $Invoice_Number, $curren
         <!-- content -->
         <div class="content">
             <header>
+                <img src="images/Link-in-Asia 2.png" alt="">
                 <table>
                     <thead>
                         <tr>
                             <td>
-                                <img src="images/LinkLogo.jpg" alt="">
                                 <ul>
-                                    <li>
-                                        Link In Asia Pte Ltd
-                                    </li>
                                     <li>
                                         111 North Bridge Road
                                     </li>
@@ -167,7 +164,8 @@ $rows_invoice_details = table_invoice_details('select', $Invoice_Number, $curren
                     <li><span class="bold" style="text-decoration: underline;">Remmitance Advice:</span></li>
                     <li><span class="bold">Bank: </span> United Oversea Bank Limited</li>
                     <li><span class="bold">Bank Address: </span> UOB Rochor, 149 Rochor Rd, #01-26 Fu Lu Shou Complex, Singapore 188425</li>
-                    <li><span class="bold">Account Number: </span>354-900-773-0 (USD)</li>
+                    <li><span class="bold">Account Number USD: </span>354-900-773-0 (USD)</li>
+                    <li><span class="bold">Account Number SGD: </span>348-315-980-1 (SGD)</li>
                     <li><span class="bold">Swift: </span>UOVBSGSG</li>
                     <li><span class="bold">Bank Code: </span>7375</li>
                     <li><span class="bold">Branch Code: </span>047</li>
