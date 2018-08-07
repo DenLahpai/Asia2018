@@ -93,7 +93,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Date</th>
                                 <th>Description</th>
                                 <th><?php echo "Amount in $currency"; ?></th>
                             </tr>
@@ -107,8 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 echo "<input type=\"number\" name=\"Id$i\" value=\"$row_invoice_details->Id\"
                                 min=\"1\" max=\"9999\" readonly>";
                                 echo "</td>";
-                                echo "<td><input type=\"date\" name=\"Date$i\" value=\"$row_invoice_details->Date\"></td>";
-                                echo "<td><input type=\"text\" name=\"Description$i\" value=\"$row_invoice_details->Description\"></td>";
+                                echo "<td><input type=\"text\" class=\"wide_input\" name=\"Description$i\" value=\"$row_invoice_details->Description\"></td>";
                                 echo "<td>";
                                 if ($currency == 'USD'){
                                     echo "<input type=\"number\" name=\"amount$i\" value=\"$row_invoice_details->USD\" step=\"0.01\">";
@@ -122,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             }
                             ?>
                             <tr>
-                                <th colspan="3" class="bold"><?php echo "Total in $currency"; ?></th>
+                                <th colspan="2" class="bold"><?php echo "Total in $currency"; ?></th>
                                 <th>
                                     <?php echo table_invoice_details('sum', $Invoice_Number, $currency); ?>
                                 </th>

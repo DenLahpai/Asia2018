@@ -48,6 +48,7 @@ header table thead tr td ul li {
 .invoice_body table {
     margin: 6px auto;
     border-collapse: collapse;
+    width: 96%;
 }
 
 .invoice_body table tr th {
@@ -59,6 +60,10 @@ header table thead tr td ul li {
     padding: 6px 24px;
     border: 1px solid silver;
 }
+/*
+.invoice_body table tbody tr td:nth-of-type(1) {
+    text-align: left;
+} */
 
 .invoice_tail {
     margin: 24px 6px;

@@ -112,7 +112,6 @@ $rows_invoice_details = table_invoice_details('select', $Invoice_Number, $curren
             <table>
                 <thead>
                     <tr>
-                        <th>Date</th>
                         <th>Description</th>
                         <th>
                             Amount in
@@ -123,9 +122,8 @@ $rows_invoice_details = table_invoice_details('select', $Invoice_Number, $curren
                 <tbody>
                     <?php
                     foreach ($rows_invoice_details as $row_invoice_details) {
-                        if (date('Y', strtotime($row_invoice_details->Date)) == 2018) {
+                        if ($row_invoice_details->Description != "" || $row_invoice_details->Description != NULL) {
                             echo "<tr>";
-                            echo "<td>".date('d-M-Y', strtotime($row_invoice_details->Date))."</td>";
                             echo "<td>".$row_invoice_details->Description."</td>";
                             if ($currency == 'USD') {
                                 echo "<td>".$row_invoice_details->USD."</td>";
@@ -139,13 +137,12 @@ $rows_invoice_details = table_invoice_details('select', $Invoice_Number, $curren
                             echo "<tr>";
                             echo "<td>&nbsp;</td>";
                             echo "<td>&nbsp;</td>";
-                            echo "<td>&nbsp;</td>";
                             echo "</tr>";
                         }
                     }
                     ?>
                     <tr>
-                        <th colspan="2">
+                        <th>
                             Total in <?php echo $currency; ?>
                         </th>
                         <th>
@@ -160,7 +157,7 @@ $rows_invoice_details = table_invoice_details('select', $Invoice_Number, $curren
                         </th>
                     </tr>
                     <tr>
-                        <th colspan="3">
+                        <th colspan="2">
                             <a href="<?php echo "edit_invoice.php?Invoice_Number=$Invoice_Number"; ?>"><button type="button" class="button link">Edit</button></a>
                             &nbsp;
                             &nbsp;

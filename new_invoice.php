@@ -91,7 +91,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <table class="invoice_details">
                         <thead>
                             <tr>
-                                <th>Date</th>
                                 <th>Description</th>
                                 <th>Amount</th>
                             </tr>

@@ -131,25 +131,21 @@ function table_invoice_details($task, $Invoice_Number, $currency){
         case 'insert':
             $i = 1;
             while ($i <= 20) {
-                $Date = $_REQUEST["Date$i"];
                 $Description = $_REQUEST["Description$i"];
                 $amount = $_REQUEST["amount$i"];
 
                 $query = "INSERT INTO invoice_details (
                     Invoice_Number,
-                    Date,
                     Description,
                     $currency
                     ) VALUES (
                     :Invoice_Number,
-                    :Date,
                     :Description,
                     :amount
                     )
                 ;";
                 $database->query($query);
                 $database->bind(':Invoice_Number', $Invoice_Number);
-                $database->bind(':Date', $Date);
                 $database->bind(':Description', $Description);
                 $database->bind(':amount', $amount);
                 $database->execute();
@@ -186,18 +182,15 @@ function table_invoice_details($task, $Invoice_Number, $currency){
             $i = 1;
             while ($i <= 20) {
                 $Id = $_REQUEST["Id$i"];
-                $Date = $_REQUEST["Date$i"];
                 $Description = trim($_REQUEST["Description$i"]);
                 $amount = $_REQUEST["amount$i"];
 
                 $query = "UPDATE invoice_details SET
-                    Date = :Date,
                     Description = :Description,
                     $currency = :amount
                     WHERE Id = :Id
                 ;";
                 $database->query($query);
-                $database->bind(':Date', $Date);
                 $database->bind(':Description', $Description);
                 $database->bind(':amount', $amount);
                 $database->bind(':Id', $Id);
