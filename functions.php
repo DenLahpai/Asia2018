@@ -215,8 +215,8 @@ function table_invoices($task, $Invoice_Number) {
             $currency = $_REQUEST['currency'];
             $Status = 'Invoiced';
             $Invoice_date = $_REQUEST['Invoice_Date'];
-            $one_month = 30;
-            $Due_Date = date('Y-m-d', strtotime($Invoice_date."+".$one_month.'days'));
+            $due_days = 45;
+            $Due_Date = date('Y-m-d', strtotime($Invoice_date."+".$due_days.'days'));
             $sum = table_invoice_details('sum', $Invoice_Number, $currency);
 
             $query = "INSERT INTO invoices (
@@ -278,17 +278,21 @@ function table_invoices($task, $Invoice_Number) {
             }
             echo $sum = table_invoice_details('sum', $Invoice_Number, $currency);
             $Invoice_Date = $_REQUEST['Invoice_Date'];
+            $due_days = 45;
+            $Due_Date = date('Y-m-d', strtotime($Invoice_date."+".$due_days.'days'));
 
             $query = "UPDATE invoices SET
                 Clients_Reference = :Clients_Reference,
                 $currency = :sum,
-                Invoice_Date = :Invoice_Date
+                Invoice_Date = :Invoice_Date,
+                Due_Date = :Due_Date
                 WHERE Invoice_Number = :Invoice_Number
             ;";
             $database->query($query);
             $database->bind(':Clients_Reference', $Clients_Reference);
             $database->bind(':sum', $sum);
             $database->bind(':Invoice_Date', $Invoice_Date);
+            $database->bind(':Due_Date', $Due_Date);
             $database->bind(':Invoice_Number', $Invoice_Number);
             if ($database->execute()) {
                 header("location:edit_invoice.php?Invoice_Number=$Invoice_Number");
