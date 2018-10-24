@@ -222,6 +222,10 @@ footer span {
     border: 1px solid silver;
 }
 
+.searchbox {
+    padding: 9px 6px;
+}
+
 .notice.error {
     color: red;
 }

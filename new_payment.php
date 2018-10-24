@@ -1,89 +1,91 @@
 <?php
-require "functions.php";
+require_once "functions.php";
+
+//getting data from the users
+$rows_users = table_users('select', $_SESSION['users_Id']);
+foreach ($rows_users as $row_users) {
+    $Fullname = $row_users->Fullname;
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //generating invoice number
-    $year = date('Y');
-    $gen_invoice_no = new Database();
-    $query_gen_invoice_no = "SELECT * FROM invoices; ";
-    $gen_invoice_no->query($query_gen_invoice_no);
-    $rowCount = $gen_invoice_no->rowCount();
+    //generating payment voucher number
+    $gen_payment = new Database();
+    $query_gen_payment = "SELECT * FROM payments ;";
+    $gen_payment->query($query_gen_payment);
+    $rowCount = $gen_payment->rowCount();
     $num = $rowCount + 1;
-    $currency = $_REQUEST['currency'];
-    if($num <= 9) {
-        $Invoice_Number = '2018'.'-000'.$num;
+    if ($num <= 9) {
+        $Voucher_Number = '00000'.$num;
     }
-    elseif($num <= 99) {
-        $Invoice_Number = '2018'.'-00'.$num;
+    elseif ($num <= 99) {
+        $Voucher_Number = '0000'.$num;
     }
     elseif ($num <= 999) {
-        $Invoice_Number = '2018'.'-0'.$num;
+        $Voucher_Number = '000'.$num;
+    }
+    elseif ($num <= 9999) {
+        $Voucher_Number = '00'.$num;
+    }
+    elseif ($num <= 99999) {
+        $Voucher_Number = '0';
     }
     else {
-        $Invoice_Number = '2018'.'-'.$num;
+        $Voucher_Number = $num;
     }
 
-    //inserting data to the table invoice header
-    table_invoice_headers('insert', $Invoice_Number);
-    table_invoice_details('insert', $Invoice_Number, $currency);
-    table_invoices('insert', $Invoice_Number);
-
+    //inserting date to the table payments_headers
+    table_payment_headers('insert', $Voucher_Number);
 }
 
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <?php
-    $page_title = "New Invoice";
+    $page_title = "Payment Vouchers";
     include "includes/head.html";
     ?>
     <body>
         <!-- content -->
         <div class="content">
             <?php
-            $header = "New Invoice";
+            $header = "New Payment Voucher";
             include "includes/header.html";
             include "includes/menu.html";
             ?>
             <main>
-                <form id="invoice" action="#" method="post">
+                <form id="payment" action="#" method="post">
                     <table class="invoice_header">
                         <thead>
                             <tr>
                                 <td>
-                                    Bill To: &nbsp;
-                                    <input type="text" name="Bill_To" id="Bill_To" placeholder="Bill to" required>
+                                    To:
+                                    <input type="text" name="To">
                                 </td>
                                 <td>
-                                    Invoice Date: &nbsp;
-                                    <input type="date" name="Invoice_Date" id="Invoice_Date" value="<?php echo date('Y-m-d'); ?>">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    Address: &nbsp;
-                                    <input type="text" name="Address" id="Address" placeholder="Address" style="width: 80%">
-                                </td>
-
-                            </tr>
-                            <tr>
-                                <td>
-                                    City: &nbsp;
-                                    <input type="text" name="City" id="City" placeholder="City" required>
-                                </td>
-                                <td>
-                                    Country: &nbsp;
-                                    <input type="text" name="Country" id="Country" placeholder="Country">
+                                    Payment Date:
+                                    <input type="date" name="Payment_Date">
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    Attn: &nbsp;
-                                    <input type="text" name="Attn" id="Attn" placeholder="Attention">
+                                    Address Line 1:
+                                    <input type="text" name="Address1" placeholder="Address Line 1">
                                 </td>
                                 <td>
-                                    Clients Reference: &nbsp;
-                                    <input type="text" name="Clients_Reference" id="Clients_Reference" placeholder="Clients Ref#">
+                                    Method:
+                                    <input type="text" name="Method" placeholder="Payment Method">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Address Line 2:
+                                    <input type="text" name="Address2" placeholder="Address Line 2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    City:
+                                    <input type="text" name="City" placeholder="City">
                                 </td>
                             </tr>
                         </thead>
@@ -91,7 +93,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <table class="invoice_details">
                         <thead>
                             <tr>
-                                <th>Description</th>
+                                <th>Invoice Date</th>
+                                <th>Invoice No</th>
                                 <th>Amount</th>
                             </tr>
                         </thead>
@@ -99,14 +102,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <?php
                             $i = 1;
                             while ($i <= 20) {
-                                include "includes/invoice_details.html";
+                                include "includes/payment_details.html";
                                 $i++;
                             }
                             ?>
                             <tr>
-                                <th colspan="3" class="notice error">
-
-                                </th>
+                                <th colspan="3" class="notice error"></th>
                             </tr>
                             <tr>
                                 <th colspan="3">

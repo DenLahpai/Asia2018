@@ -297,14 +297,45 @@ function table_invoices($task, $Invoice_Number) {
             if ($database->execute()) {
                 header("location:edit_invoice.php?Invoice_Number=$Invoice_Number");
             }
-
-
             break;
 
         default:
             // code...
             break;
     }
+}
+
+//function to use date from the table payments_header
+function table_payment_headers($task, $Voucher_Number) {
+    $database = new Database();
+}
+
+//fucntion to use data from the table payments
+function table_payments($task, $paymentsId) {
+    $database = new Database();
+
+    switch ($task) {
+        case 'insert':
+            // code...
+            break;
+        case 'select':
+            if ($paymentsId == NULL || $paymentsId == "" || empty($paymentsId)) {
+                $query = "SELECT * FROM payments ORDER BY Id ;";
+                $database->query($query);
+            }
+            else {
+                $query = "SELECT * FROM payments WHERE Id = :paymentsId ;";
+                $database->query($query);
+                $database->bind(':paymentsId', $paymentsId);
+            }
+            return $r = $database->resultset();
+            break;
+
+        default:
+            // code...
+            break;
+    }
+
 }
 
 

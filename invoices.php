@@ -32,8 +32,7 @@ foreach ($rows_users as $row_users) {
                                 &nbsp;
                             </li>
                             <li>
-                                <input type="text" name="search" id="search" placeholder="Search Invoices">
-
+                                <input type="text" name="search" id="search" class="searchbox" placeholder="Search Invoices">
                             </li>
                             <li>
                                 <button type="button" class="button search" name="buttonSearch">Search</button>
