@@ -35,6 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     //inserting date to the table payments_headers
     table_payment_headers('insert', $Voucher_Number);
+    table_payment_details('insert', $Voucher_Number);
+    table_payments('insert', $Voucher_Number);
 }
 
 ?>
@@ -59,21 +61,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <tr>
                                 <td>
                                     To:
-                                    <input type="text" name="To">
+                                    <input type="text" name="To" id="To">
                                 </td>
                                 <td>
                                     Payment Date:
-                                    <input type="date" name="Payment_Date">
+                                    <input type="date" name="Payment_Date" id="Payment_Date">
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     Address Line 1:
-                                    <input type="text" name="Address1" placeholder="Address Line 1">
+                                    <input type="text" name="Address1" id="Address1" placeholder="Address Line 1">
                                 </td>
                                 <td>
                                     Method:
-                                    <input type="text" name="Method" placeholder="Payment Method">
+                                    <input type="text" name="Method" id="Method" placeholder="Payment Method">
                                 </td>
                             </tr>
                             <tr>
@@ -86,6 +88,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <td>
                                     City:
                                     <input type="text" name="City" placeholder="City">
+                                </td>
+                                <td>
+                                    Country:
+                                    <input type="text" name="Country" placeholder="Country">
                                 </td>
                             </tr>
                         </thead>
@@ -117,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <option value="USD">USD</option>
                                         <option value="SGD">SGD</option>
                                     </select>
-                                    <button type="button" class="button link" id="buttonSubmit" name="buttonSubmit" onclick="check_fields('Bill_To', 'City', 'currency');">Generate</button>
+                                    <button type="button" class="button link" id="buttonSubmit" name="buttonSubmit" onclick="check_fields('To', 'Method', 'currency');">Generate</button>
                                 </th>
                             </tr>
                         </tbody>

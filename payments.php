@@ -63,7 +63,7 @@ foreach ($rows_users as $row_users) {
                                 echo "<td>".$row_payments->USD."</td>";
                                 echo "<td>".$row_payments->SGD."</td>";
                                 echo "<td>".$row_payments->Method."</td>";
-                                echo "<td><a href=\"view_payment.php?paymentsId=$row_payments->Id\">View</a></td>";
+                                echo "<td><a href=\"view_payment.php?Voucher_Number=$row_payments->Voucher_Number\">View</a></td>";
                                 echo "</tr>";
                             }
                             ?>
@@ -72,8 +72,8 @@ foreach ($rows_users as $row_users) {
                 </div>
                 <!-- end of table large -->
             </main>
-
         </div>
         <!-- end of content -->
+        <?php include "includes/footer.html"; ?>
     </body>
 </html>

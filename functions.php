@@ -131,7 +131,7 @@ function table_invoice_details($task, $Invoice_Number, $currency){
         case 'insert':
             $i = 1;
             while ($i <= 20) {
-                $Description = $_REQUEST["Description$i"];
+                $Description = trim($_REQUEST["Description$i"]);
                 $amount = $_REQUEST["amount$i"];
 
                 $query = "INSERT INTO invoice_details (
@@ -305,28 +305,54 @@ function table_invoices($task, $Invoice_Number) {
     }
 }
 
-//function to use date from the table payments_header
+//function to use date from the table payment_headers
 function table_payment_headers($task, $Voucher_Number) {
-    $database = new Database();
-}
-
-//fucntion to use data from the table payments
-function table_payments($task, $paymentsId) {
     $database = new Database();
 
     switch ($task) {
         case 'insert':
-            // code...
+            $To = trim($_REQUEST['To']);
+            $Address1 = trim($_REQUEST['Address1']);
+            $Address2 = trim($_REQUEST['Address2']);
+            $City = trim($_REQUEST['City']);
+            $Country = trim($_REQUEST['Country']);
+
+            $query = "INSERT INTO payment_headers (
+                Voucher_Number,
+                Addressee,
+                Address1,
+                Address2,
+                City,
+                Country
+                ) VALUES (
+                :Voucher_Number,
+                :To,
+                :Address1,
+                :Address2,
+                :City,
+                :Country
+                )
+            ;";
+            $database->query($query);
+            $database->bind(':Voucher_Number', $Voucher_Number);
+            $database->bind(':To', $To);
+            $database->bind(':Address1', $Address1);
+            $database->bind(':Address2', $Address2);
+            $database->bind(':City', $City);
+            $database->bind(':Country', $Country);
+            $database->execute();
             break;
         case 'select':
-            if ($paymentsId == NULL || $paymentsId == "" || empty($paymentsId)) {
-                $query = "SELECT * FROM payments ORDER BY Id ;";
+            if ($Voucher_Number == "" || $Voucher_Number == NULL || empty($Voucher_Number)) {
+                $query = "SELECT * FROM payment_headers ;";
                 $database->query($query);
             }
             else {
-                $query = "SELECT * FROM payments WHERE Id = :paymentsId ;";
+                $query = "SELECT * FROM payment_headers
+                    WHERE Voucher_Number = :Voucher_Number
+                ;";
                 $database->query($query);
-                $database->bind(':paymentsId', $paymentsId);
+                $database->bind(':Voucher_Number', $Voucher_Number);
             }
             return $r = $database->resultset();
             break;
@@ -335,7 +361,130 @@ function table_payments($task, $paymentsId) {
             // code...
             break;
     }
+}
 
+//function to use data from the table payment_details
+function table_payment_details($task, $Voucher_Number) {
+    $database = new Database();
+
+    switch ($task) {
+        case 'insert':
+            $currency = $_REQUEST['currency'];
+            $i = 1;
+            while ($i <= 20) {
+                $Invoice_Date = $_REQUEST["Invoice_Date$i"];
+                $Invoice_Number = trim($_REQUEST["Invoice_Number$i"]);
+                $amount = $_REQUEST["amount$i"];
+
+                $query = "INSERT INTO payment_details (
+                    Voucher_Number,
+                    Invoice_Date,
+                    Invoice_Number,
+                    $currency
+                    ) VALUES(
+                    :Voucher_Number,
+                    :Invoice_Date,
+                    :Invoice_Number,
+                    :amount
+                    )
+                ;";
+                $database->query($query);
+                $database->bind(':Voucher_Number', $Voucher_Number);
+                $database->bind(':Invoice_Date', $Invoice_Date);
+                $database->bind(':Invoice_Number', $Invoice_Number);
+                $database->bind(':amount', $amount);
+                $database->execute();
+                $i++;
+            }
+            break;
+        case 'select':
+            if ($Voucher_Number == "" || $Voucher_Number == NULL || empty($Voucher_Number)) {
+                $query = "SELECT * FROM payment_details ;";
+                $database->query($query);
+            }
+            else {
+                $query = "SELECT * FROM payment_details
+                    WHERE Voucher_Number = :Voucher_Number
+                ;";
+                $database->query($query);
+                $database->bind(':Voucher_Number', $Voucher_Number);
+            }
+            return $r = $database->resultset();
+            break;
+
+        case 'sum':
+            $currency = $_REQUEST['currency'];
+            $query = "SELECT SUM($currency) AS $currency FROM payment_details
+                WHERE Voucher_Number = :Voucher_Number
+            ;";
+            $database->query($query);
+            $database->bind(':Voucher_Number', $Voucher_Number);
+            $rows = $database->resultset();
+            foreach ($rows as $row) {
+                $sum = $row->$currency;
+            }
+            return $sum;
+            break;
+
+        default:
+            // code...
+            break;
+    }
+}
+
+//fucntion to use data from the table payments
+function table_payments($task, $Voucher_Number) {
+    $database = new Database();
+
+    switch ($task) {
+        case 'insert':
+            $currency = $_REQUEST['currency'];
+            $Payment_Date = $_REQUEST['Payment_Date'];
+            $sum = table_payment_details('sum', $Voucher_Number);
+            $Method = trim($_REQUEST['Method']);
+            $UsersId = $_SESSION['users_Id'];
+
+            $query = "INSERT INTO payments (
+                Voucher_Number,
+                Payment_Date,
+                $currency,
+                Method,
+                UsersId
+                ) VALUES(
+                :Voucher_Number,
+                :Payment_Date,
+                :sum,
+                :Method,
+                :UsersId
+                )
+            ;";
+            $database->query($query);
+            $database->bind(':Voucher_Number', $Voucher_Number);
+            $database->bind(':Payment_Date', $Payment_Date);
+            $database->bind(':sum', $sum);
+            $database->bind(':Method', $Method);
+            $database->bind(':UsersId', $UsersId);
+            if ($database->execute()) {
+                header("location: payments.php");
+            }
+            break;
+        case 'select':
+            if ($Voucher_Number == NULL || $Voucher_Number == "" || empty($Voucher_Number)) {
+                $query = "SELECT * FROM payments ORDER BY Id ;";
+                $database->query($query);
+            }
+            else {
+                $query = "SELECT * FROM payments WHERE Voucher_Number = :Voucher_Number ;";
+                $database->query($query);
+                $database->bind(':Voucher_Number', $Voucher_Number);
+            }
+            return $r = $database->resultset();
+            break;
+
+        default:
+            // code...
+            break;
+    }
 }
 
 
