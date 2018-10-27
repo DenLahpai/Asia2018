@@ -10,7 +10,6 @@ else {
     $_SESSION['error_message'] = NULL;
 }
 
-
 //getting data from the table users
 function table_users($task, $users_Id) {
     $database = new Database();
@@ -355,6 +354,31 @@ function table_payment_headers($task, $Voucher_Number) {
                 $database->bind(':Voucher_Number', $Voucher_Number);
             }
             return $r = $database->resultset();
+            break;
+
+        case 'update':
+            $Addressee = trim($_REQUEST['Addressee']);
+            $Address1 = trim($_REQUEST['Address1']);
+            $Address2 = trim($_REQUEST['Address2']);
+            $City = trim($_REQUEST['City']);
+            $Country = trim($_REQUEST['Country']);
+
+            $query = "UPDATE payment_headers SET
+                Addressee = :Addressee,
+                Address1 = :Address1,
+                Address2 = :Address2,
+                City = :City,
+                Country = :Country
+                WHERE Voucher_Number = :Voucher_Number
+            ;";
+            $database->query($query);
+            $database->bind(':Addressee', $Addressee);
+            $database->bind(':Address1', $Address1);
+            $database->bind(':Address2', $Address2);
+            $database->bind(':City', $City);
+            $database->bind(':Country', $Country);
+            $database->bind(':Voucher_Number', $Voucher_Number);
+            $database->execute();
             break;
 
         default:

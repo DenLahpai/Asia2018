@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <thead>
                             <tr>
                                 <th>Invoice Date</th>
-                                <th>Invoice No</th>
+                                <th>Invoice No / Descrption</th>
                                 <th>Amount</th>
                             </tr>
                         </thead>
