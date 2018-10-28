@@ -33,9 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $Voucher_Number = $num;
     }
 
-    //inserting date to the table payments_headers
+    //inserting date to the table payment_headers
     table_payment_headers('insert', $Voucher_Number);
-    table_payment_details('insert', $Voucher_Number);
+    table_payment_details('insert', $Voucher_Number, $currency);
     table_payments('insert', $Voucher_Number);
 }
 

@@ -3,9 +3,6 @@ require "functions.php";
 //getting invoice number
 $Invoice_Number = trim($_REQUEST['Invoice_Number']);
 
-//getting Invoice_Number
-$Invoice_Number = trim($_REQUEST['Invoice_Number']);
-
 //getting data from the table invoice_headers
 $rows_invoice_headers = table_invoice_headers('select', $Invoice_Number);
 foreach ($rows_invoice_headers as $row_invoice_headers) {

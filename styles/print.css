@@ -69,6 +69,57 @@ header table thead tr td ul li {
     margin: 24px 6px;
 }
 
+.payment_header {
+    padding: 6px;
+}
+
+.payment_header table {
+    border-collapse: collapse;
+}
+
+.payment_header table thead td:nth-of-type(1) {
+    padding-right: 240px;
+}
+
+.payment_header table thead tr td ul li {
+    list-style: none;
+}
+
+.payment_details {
+    padding: 6px;
+}
+
+.payment_details table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.payment_details table thead tr td {
+    font-weight: bold;
+    border-bottom: 2px solid black;
+}
+
+.payment_details table tr td:nth-of-type(odd) {
+    width: 25%;
+    padding-top: 6px;
+}
+
+.payment_details table tr td:nth-of-type(even) {
+    width: 50%;
+    padding-top: 6px;
+}
+
+.payment_footer table {
+    margin-top: 18px;
+    width: 96%;
+}
+
+
+.payment_footer table thead tr td {
+    padding: 30px 6px;
+    background: red;
+}
+
 footer {
     margin: 24px;
     text-align: center;

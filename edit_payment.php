@@ -10,9 +10,6 @@ foreach ($rows_payment_headers as $row_payment_headers) {
     // code...
 }
 
-// getting data from the table payment_details
-$rows_payment_details = table_payment_details('select', $Voucher_Number);
-
 // getting data from the table payments
 $rows_payments = table_payments('select', $Voucher_Number);
 foreach ($rows_payments as $row_payments) {
@@ -27,8 +24,15 @@ else {
     $currency = 'USD';
 }
 
+
+// getting data from the table payment_details
+$rows_payment_details = table_payment_details('select', $Voucher_Number, $currency);
+
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     table_payment_headers('update', $Voucher_Number);
+    table_payment_details('update', $Voucher_Number, $currency);
+    table_payments('update', $Voucher_Number);
 }
 
 ?>
@@ -106,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 echo "<input type=\"number\" name=\"Id$i\" value=\"$row_payment_details->Id\"
                                 min=\"1\" max=\"9999\" readonly>";
                                 echo "</td>";
-                                echo "<td><input type=\"text\" name=\"Invoice_Date$i\" value=\"$row_payment_details->Invoice_Date\"></td>";
+                                echo "<td><input type=\"date\" name=\"Invoice_Date$i\" value=\"$row_payment_details->Invoice_Date\"></td>";
                                 echo "<td>";
                                 echo "<input type=\"text\" class=\"wide_input\" name=\"Invoice_Number$i\" value=\"$row_payment_details->Invoice_Number\">";
                                 echo "</td>";
@@ -118,6 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     echo "<input type=\"number\" name=\"amount$i\" value=\"$row_payment_details->SGD\" step=\"0.01\">";
                                 }
                                 echo "</td>";
+                                $i++;
                             }
                             ?>
                             <tr>

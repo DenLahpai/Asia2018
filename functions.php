@@ -275,7 +275,7 @@ function table_invoices($task, $Invoice_Number) {
             else {
                 $currency = 'USD';
             }
-            echo $sum = table_invoice_details('sum', $Invoice_Number, $currency);
+            $sum = table_invoice_details('sum', $Invoice_Number, $currency);
             $Invoice_Date = $_REQUEST['Invoice_Date'];
             $due_days = 45;
             $Due_Date = date('Y-m-d', strtotime($Invoice_date."+".$due_days.'days'));
@@ -388,7 +388,7 @@ function table_payment_headers($task, $Voucher_Number) {
 }
 
 //function to use data from the table payment_details
-function table_payment_details($task, $Voucher_Number) {
+function table_payment_details($task, $Voucher_Number, $currency) {
     $database = new Database();
 
     switch ($task) {
@@ -437,7 +437,6 @@ function table_payment_details($task, $Voucher_Number) {
             break;
 
         case 'sum':
-            $currency = $_REQUEST['currency'];
             $query = "SELECT SUM($currency) AS $currency FROM payment_details
                 WHERE Voucher_Number = :Voucher_Number
             ;";
@@ -448,6 +447,30 @@ function table_payment_details($task, $Voucher_Number) {
                 $sum = $row->$currency;
             }
             return $sum;
+            break;
+
+        case 'update':
+            $i = 1;
+            while ($i <= 20) {
+                $Id = $_REQUEST["Id$i"];
+                $Invoice_Date = $_REQUEST["Invoice_Date$i"];
+                $Invoice_Number = trim($_REQUEST["Invoice_Number$i"]);
+                $amount = $_REQUEST["amount$i"];
+
+                $query = "UPDATE payment_details SET
+                    Invoice_Date = :Invoice_Date,
+                    Invoice_Number = :Invoice_Number,
+                    $currency = :amount
+                    WHERE Id = :Id
+                ;";
+                $database->query($query);
+                $database->bind(':Invoice_Date', $Invoice_Date);
+                $database->bind(':Invoice_Number', $Invoice_Number);
+                $database->bind(':amount', $amount);
+                $database->bind(':Id', $Id);
+                $database->execute();
+                $i++;
+            }
             break;
 
         default:
@@ -503,6 +526,49 @@ function table_payments($task, $Voucher_Number) {
                 $database->bind(':Voucher_Number', $Voucher_Number);
             }
             return $r = $database->resultset();
+            break;
+
+        case 'update':
+            $query_currency = "SELECT USD, SGD FROM payments WHERE Voucher_Number = :Voucher_Number ;";
+            $database->query($query_currency);
+            $database->bind(':Voucher_Number', $Voucher_Number);
+            $result_currency = $database->resultset();
+            foreach ($result_currency as $result_currency) {
+                // code...
+            }
+            if ($result_currency->USD == 0) {
+                $currency = 'SGD';
+            }
+            else {
+                $currency = 'USD';
+            }
+
+            $query_sum = "SELECT SUM($currency) AS $currency FROM payment_details
+                WHERE Voucher_Number = :Voucher_Number
+            ;";
+            $database->query($query_sum);
+            $database->bind(':Voucher_Number', $Voucher_Number);
+            $rows = $database->resultset();
+            foreach ($rows as $row) {
+                $sum = $row->$currency;
+            }
+
+
+            $Payment_Date = $_REQUEST['Payment_Date'];
+            $query = "UPDATE payments SET
+                Payment_Date = :Payment_Date,
+                $currency = :sum,
+                UsersId = :UsersId
+                WHERE Voucher_Number = :Voucher_Number
+            ;";
+            $database->query($query);
+            $database->bind(':Payment_Date', $Payment_Date);
+            $database->bind(':sum', $sum);
+            $database->bind(':UsersId', $UsersId);
+            $database->bind(':Voucher_Number', $Voucher_Number);
+            if ($database->execute()) {
+                header("location:edit_payment.php?Voucher_Number=$Voucher_Number");
+            }
             break;
 
         default:

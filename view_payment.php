@@ -11,7 +11,7 @@ foreach ($rows_payment_headers as $row_payment_headers) {
 }
 
 // getting data from the table payment_details
-$rows_payment_details = table_payment_details('select', $Voucher_Number);
+$rows_payment_details = table_payment_details('select', $Voucher_Number, NULL);
 
 // getting data from the table payments
 $rows_payments = table_payments('select', $Voucher_Number);
