@@ -141,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     &nbsp;
                                     &nbsp;
                                     &nbsp;
-                                    <a href="<?php echo "print_voucher.php?Voucher_Number=$Voucher_Number"; ?>" target="_blank"><button type="button" class="button link">Print</button></a>
+                                    <a href="<?php echo "print_payment.php?Voucher_Number=$Voucher_Number"; ?>" target="_blank"><button type="button" class="button link">Print</button></a>
                                 </th>
                             </tr>
                         </tbody>
